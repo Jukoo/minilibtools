@@ -22,7 +22,7 @@ typedef  enum  {
 
 typedef  struct  { 
   int  (*popen) (const char  * , char *const * , char *  , SHOUT ) ; 
-  char *(*find)  (const char  *  , char *) ;  
+  char *(*find)  (const char  *);  
   SHOUT shell_output_mode ;  
 }Subp_t  ; 
 
@@ -78,8 +78,15 @@ static  void  get_xpath(char  const * __envar,  char **__binpaths)  ;
  *  @return  void *  : should be not null  
  */  
 
-char  * is_available(const char * __unix_command ,char * __abs_fullpathstorage) ; 
+static char  * is_available(const char * __unix_command ,char * __abs_fullpathstorage) ; 
 
+/** @brief same as is_available 
+ *  this function wrap is_available  function to simplify  external  usage   
+ *  
+ *  @param  __unix_command  available unix command in your host
+ *  @return  should be not null  
+ */
 
+char * is_set (  const char *  __unix_command )  ; 
 
 #endif //!__subexec_unix_cmd 

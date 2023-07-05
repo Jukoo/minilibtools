@@ -18,7 +18,7 @@
 
 Subp_t * new_subprocess (Subp_t  *  supb , SHOUT   sh_behavior)  {
   supb->popen = subprocess  ; 
-  supb->find  =  is_available ; 
+  supb->find  =  is_set; 
   supb->shell_output_mode =  sh_behavior ;
   return supb; 
 }
@@ -92,6 +92,7 @@ static   void get_xpath(const char *envar, char **binpaths) {
 
   char  ve_path[MAXBUFF]={0} ; 
 
+  char **bp = binpaths ; 
   if( envar == _Nullable ) memcpy(ve_path , UNIX_ENV_PATH ,strlen(UNIX_ENV_PATH)) ; 
   else    memcpy(ve_path , envar  , strlen(envar) ) ; 
   
@@ -113,24 +114,33 @@ static   void get_xpath(const char *envar, char **binpaths) {
     path_token= strtok(_Nullable, PATH_DELIM); 
   }
   binpaths[i++]=_Nullable ; 
+  
+  binpaths = bp ; 
 
 }
 
 
-char * is_available (const char * unix_command , char * fpath_storage ) {
+static char * is_available (const char * unix_command , char * fpath_storage ) {
   
-  static  char endpoint_xcmd[MAXBUFF >>3]  = {0};
-  sprintf ( endpoint_xcmd , "/%s" , unix_command ) ; 
+  char endpoint_xcmd[MAXBUFF >>3]  = {0};  
+
+  sprintf ( endpoint_xcmd , "/%s" , unix_command ) ; /** -> example ls  -> /ls */ 
+
   char *binpaths[MAXBUFF]  = { _Nullable } ; 
+
   get_xpath(UNIX_ENV_PATH ,  binpaths) ; 
+  char **binpaths_begin   =  binpaths ;   
    
-  char  abs_binpathlocaltion[MAXBUFF] = {0};  
+  char  abs_binpathlocaltion[MAXBUFF] = {0};  /** absolut binary path location  */
    
   int next = 0 ;  
   while (  *binpaths  != _Nullable ) 
   {
     memcpy(fpath_storage, *binpaths , strlen(*binpaths) ) ; 
-    strcat(fpath_storage, endpoint_xcmd) ; 
+    strcat(fpath_storage, endpoint_xcmd) ;  
+
+    printf("bp ->  %s  \n "  , *binpaths) ; 
+    /**  Try to check if the command is  an executable */ 
     if (access(fpath_storage,  X_OK) != -1 ) 
     { 
       break ;  
@@ -140,6 +150,15 @@ char * is_available (const char * unix_command , char * fpath_storage ) {
     *binpaths =  binpaths[next++] ; 
   }
 
-  return strlen(fpath_storage) >1 ?  fpath_storage : _Nullable ; 
+  printf("fp -> %s \n"  ,fpath_storage ) ;
+   
+  return  strlen(fpath_storage) >1 ?  fpath_storage : _Nullable ; 
 }
 
+
+char *is_set (const char* unix_command) {
+  char fpathcmd[MAXBUFF] ={ 0 } ;  
+  char * cmd   = is_available(unix_command , fpathcmd ) ;  
+  fprintf(stdout , " cmd  ->  %s \n "  , cmd ) ; 
+  return  cmd ; 
+}
