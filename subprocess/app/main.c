@@ -8,7 +8,8 @@
 
 int
 main(int __ac , char **__av )  {  
-  
+ 
+  /* 
   char *x[]  =  { "-l"  , "-a" }  ;
   
   Subp_t shell ; 
@@ -18,7 +19,10 @@ main(int __ac , char **__av )  {
   
   shell.popen("ls" , x , "output.cmd" ,  shell.shell_output_mode) ;  
 
+  */ 
+
   
+  binpaths_collections(_Nullable)  ;   
 
   return EXIT_SUCCESS ; 
 }
