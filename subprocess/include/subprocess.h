@@ -23,12 +23,14 @@
 
 #define  MAXBUFF 0xff 
 
-extern const char **environ  ;
+#define  __elf_check(_binelf_)  (access(_binelf_ ,  F_OK) != ~0  && access(_binelf_ , X_OK) != ~0)
+
 
 typedef enum {  
-  false, 
-  true 
+  False, 
+  True 
 }_bool ; 
+
 /** Subprocess data structure */ 
 typedef  struct  __subprocess_t  Subp_t  ; 
 struct __subprocess_t  {
@@ -38,7 +40,14 @@ struct __subprocess_t  {
 }; 
 
 
+/**
+ *
+ */
+SUBP static char *  binpaths_collections(const char *__restrict__  __envar) ; 
 
-SUBP static void  binpaths_collections(const char  * __envar) ; 
+/**
+ * 
+ */
+SUBP static  _bool cmd_check(const char * __restrict__ __gnu_linux_command) ;  
 
 #endif /**__SUBPROC_H*/

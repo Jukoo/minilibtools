@@ -22,7 +22,11 @@ main(int __ac , char **__av )  {
   */ 
 
   
-  binpaths_collections(_Nullable)  ;   
+  //binpaths_collections(_Nullable)  ;   
+  
+  //_bool  is  = cmd_check("ls"); 
+
+  //printf("%i \n" , is); 
 
   return EXIT_SUCCESS ; 
 }
