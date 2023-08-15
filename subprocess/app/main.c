@@ -3,12 +3,29 @@
 #include <unistd.h>  
 #include <string.h>  
 #include <assert.h>  
+#include <err.h> 
 
 #include "subprocess.h"
 
 int
 main(int __ac , char **__av )  {  
- 
+
+
+  Subp_t  subp_manager ;  
+  if ( (subprocess_init(&subp_manager ,  _Nullable))  == _Nullable ) 
+  {
+    errx(~0 ,  "Subp_t manager fail init") ; 
+  } 
+    
+  int  command_index = subp_manager.check("ls") ; 
+  if ( command_index <=~0)  
+  {
+     warnx("not found !") ;
+     exit(1);
+  }
+  
+  fprintf(stdout , "position -> %i  : %s" , command_index , subp_manager.binpaths[command_index]) ; 
+
   /* 
   char *x[]  =  { "-l"  , "-a" }  ;
   
