@@ -4,9 +4,11 @@ project(app.elfbin VERSION 1.0)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED True)  
 
+set(CMAKE_C_CPPCHECK "cppcheck")
+
 string(ASCII 27 Escape)
 if(DBG)  
-  message("\t ${Escape}[1;32m +>> Enable Debug Symbol ${Escape}[0m")  
+  message(STATUS "${Escape}[1;32m +>> Enable Debug Symbol ${Escape}[0m")  
   set(CMAKE_BUILD_TYPE Debug) 
 endif()
 

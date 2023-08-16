@@ -4,6 +4,7 @@ project (subproc VERSION 1.0)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED True) 
 
+add_subdirectory(app)
 set(source src/subprocess.c) 
 
 add_library(${PROJECT_NAME} SHARED ${source}) 

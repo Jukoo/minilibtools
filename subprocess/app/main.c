@@ -24,7 +24,9 @@ main(int __ac , char **__av )  {
      exit(1);
   }
   
-  fprintf(stdout , "position -> %i  : %s" , command_index , subp_manager.binpaths[command_index]) ; 
+  fprintf(stdout , "position -> %i  : %s" , command_index , subp_manager.binpaths[command_index]) ;
+  
+  //subp_manager.Popen("ls" ,  {"-a"}  , _nullable | dev_nul  | shell)
 
   /* 
   char *x[]  =  { "-l"  , "-a" }  ;

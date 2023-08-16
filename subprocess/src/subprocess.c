@@ -26,7 +26,6 @@ Subp_t * subprocess_init(Subp_t  * subp_instance , char *local_environment_varia
   binpaths_collections( local_environment_variables ) ; 
   
   memcpy(subp_instance->binpaths,  bp_collectors , MAXBUFF*MAXBUFF) ; 
-  explicit_bzero(subp_instance->last_bp_location,  MAXBUFF >> 4);  
   subp_instance->check=  is_set ;  
   return subp_instance ; 
 }

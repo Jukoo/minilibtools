@@ -19,10 +19,10 @@
 
 #define  DEFSEP 0x3a  
  
-#define  ENVAR_u1    ( 0b101 << 4 ) 
-#define  ENVAR_u2    ( 0b100 << 4 | 1 )  
-#define  ENVAR_u3    ( 0b101 << 4 | 4 )
-#define  ENVAR_u4    ( 0b100 << 4 | 8 )
+#define  ENVAR_u1     0b1010000  
+#define  ENVAR_u2     0b1000001   
+#define  ENVAR_u3     0b1010100
+#define  ENVAR_u4     0b1001000
 
 
 #define  MAXBUFF 0xff 
@@ -34,6 +34,20 @@ typedef enum {
   False, 
   True 
 }_bool ; 
+
+typedef enum   { 
+#ifdef __linux__ 
+  DEVNULL , 
+#define DEVNULL /dev/null 
+#else   
+  DEVNULL, 
+#define  DEVNULL  _nullable  
+#endif 
+  SHELL
+#define  SHELL SHELL
+} SH_ATTR; 
+
+
 
 /** Subprocess data structure */ 
 typedef  struct  __subprocess_t  Subp_t  ; 
@@ -48,22 +62,33 @@ struct __subprocess_t  {
   
   /*check when unix comand is available  on the current system */  
   int (*check)(const char * __restrict__  __gnu_linux_command); 
-}; 
+};
+
+typedef union subpsh_attr_t  subpsh_attr_t ; 
 
 /**
  *
  */
-SUBP Subp_t  * subprocess_init(Subp_t * _subpt_instance , char * __local_envar ) ;
+SUBP Subp_t  * 
+subprocess_init(Subp_t * _subpt_instance , char * __local_envar ) ;
 
 /**
  *
+ */ 
+
+SUBP int  
+Popen(const char * __restrict__ __gnu_linux_command ,  char ** __args ,   subpsh_attr_t *  __out_redirect) ; 
+/**
+ *
  */
-SUBP static char *  binpaths_collections(const char *__restrict__  __envar) ; 
+SUBP static char *
+binpaths_collections(const char *__restrict__  __envar) ; 
 
 /**
  * 
  */
-SUBP static int is_set(const char * __restrict__  __gnu_linux_command) ; 
+SUBP static int 
+is_set(const char * __restrict__  __gnu_linux_command) ; 
 
 
 
